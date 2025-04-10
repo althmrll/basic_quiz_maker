@@ -1,11 +1,11 @@
 def option_one():
     options = []
+    question_with_choice=""
     f = open("Untitled Quiz.txt", "w")
 
     while True:
         question=input("Question:")
-        question=question+"\n"
-        f.write(question)
+        question_with_choice+=question+"\n"
         option_count = 0
         options.clear()
 
@@ -14,17 +14,20 @@ def option_one():
             options.append(option)
             option_count = option_count + 1
 
-        f.write("\n".join(options))
+        for options_item_index, option in enumerate(options):
+            question_with_choice += f"{chr(ord('a')+options_item_index)}. {option} \n"
+        f.write(question_with_choice)
 
         while True:
             ask = input("Add another question?(Y/N)")
             if ask == "Y" or ask == "y":
-                new_line="\n\n"
+                new_line="\n"
                 f.write(new_line)
+                question_with_choice=""
                 break
 
             elif ask == "N" or ask == "n":
-                print("Thank you for using basic quiz maker. Be sure to rename your file or else it will"
+                print("\nThank you for using basic quiz maker. Be sure to rename your file or else it will"
                         "be replaced if you make another one.")
                 f.close()
                 break
