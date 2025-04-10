@@ -1,24 +1,38 @@
 def option_one():
-    option_count=0
-    f = open("quiz_maker.txt", "w")
+    options=[]
+    f = open("Untitled Quiz.txt", "w")
 
     while True:
         question=input("Question:")
+        question=question+"\n"
         f.write(question)
+        option_count = 0
         while option_count!=4:
             option = input("Add option:")
-            f.write(option)
+            options.append(option)
             option_count = option_count + 1
 
-        ask = input("Add another question?(Y/N)")
-        if ask == "Y" or ask == "y":
-            continue
-        if ask == "N" or ask == "n":
-            print("Thank you for using basic quiz maker. Be sure to rename your file or else it will"
-                  "be replaced if you make another one.")
-            f.close()
-            f.read()
-            break
+        f.write("\n".join(options))
+
+        while True:
+            ask = input("Add another question?(Y/N)")
+            if ask == "Y" or ask == "y":
+                new_line="\n\n"
+                f.write(new_line)
+                continue
+
+            elif ask == "N" or ask == "n":
+                print("Thank you for using basic quiz maker. Be sure to rename your file or else it will"
+                        "be replaced if you make another one.")
+                f.close()
+                f.read()
+                break
+
+            else:
+                print("you can only answer Y or N")
+                continue
+        break
+
 
 #Menu
 option_count = 0
