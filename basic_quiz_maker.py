@@ -1,5 +1,5 @@
 def option_one():
-    options=[]
+    options = []
     f = open("Untitled Quiz.txt", "w")
 
     while True:
@@ -7,6 +7,8 @@ def option_one():
         question=question+"\n"
         f.write(question)
         option_count = 0
+        options.clear()
+
         while option_count!=4:
             option = input("Add option:")
             options.append(option)
@@ -19,19 +21,22 @@ def option_one():
             if ask == "Y" or ask == "y":
                 new_line="\n\n"
                 f.write(new_line)
-                continue
+                break
 
             elif ask == "N" or ask == "n":
                 print("Thank you for using basic quiz maker. Be sure to rename your file or else it will"
                         "be replaced if you make another one.")
                 f.close()
-                f.read()
                 break
 
             else:
                 print("you can only answer Y or N")
                 continue
-        break
+        if ask == "Y" or ask == "y":
+            continue
+        elif ask == "N" or ask == "n":
+            break
+
 
 
 #Menu
@@ -48,6 +53,7 @@ while True:
         if choice==1:
             print("\n----------\n\nYou have chosen 'CREATE QUIZ'\n")
             option_one()
+            break
 
         elif choice==2:
             print("\nGoodbye!")
