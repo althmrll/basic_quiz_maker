@@ -1,7 +1,11 @@
+import os
+
 def option_one():
     options = []
     question_with_choice=""
     f = open("Untitled Quiz.txt", "w")
+    f.write("(IMPORTANT NOTE: Please change the filename of this quiz after checking as it may be deleted when creating"
+            " a new one. Delete this notice after. Thank you!)\n\n")
 
     while True:
         question=input("Question:") #Asks user for input
@@ -29,8 +33,10 @@ def option_one():
 
             elif ask == "N" or ask == "n":
                 print("\nThank you for using basic quiz maker. Be sure to rename your file or else it will"
-                        "be replaced if you make a new quiz.\n")
+                        "be replaced if you make a new quiz.FOr now, a notepad file will open which contians all the"
+                      "questions that you have inputted. Thank you!\n")
                 f.close()
+                os.startfile('Untitled Quiz.txt')
                 break
 
             else:
@@ -47,11 +53,12 @@ def option_two():
     f = open(filename, "a")
     space="\n"
     f.write(space)
+    f.write("(This is the start of your editing using quiz maker. Delete this after checking. Thank you!)\n\n")
 
     while True:
         question=input("Question:") #Asks user for input
         question_with_choice+=question+"\n"#Adds new line so choices will be written below the question"
-        option_count = 0
+        option_count=0
         options.clear() #clears items in options list, so the number from preceding numbers re not printed
                         #again in the following numbers.
 
@@ -73,9 +80,10 @@ def option_two():
                 break
 
             elif ask == "N" or ask == "n":
-                print("\nThank you for using basic quiz maker. If you think you have made a mistake, you can always open"
-                      "the file you edited and delete it manually\n")
+                print("\nThank you for using basic quiz maker. The file you have edited will now be opened so you can"
+                      "check the changes.\n")
                 f.close()
+                os.startfile(filename)
                 break
 
             else:
@@ -105,11 +113,10 @@ while True:
 
         if choice==2:
             print("\n----------\n\nYou have chosen 'EDIT EXISTING QUIZ'\n")
-            filename=input("input filename of quiz you want to edit(be mindful of the cases and spaces."
-                           "Include extension as well):")
+            filename=input("input filename of quiz you want to edit(be mindful with the cases and spaces):")
+            filename=filename+'.txt'
             option_two()
             break
-
 
         elif choice==3:
             print("\nYou have chosen 'EXIT'\n\nGoodbye!")
