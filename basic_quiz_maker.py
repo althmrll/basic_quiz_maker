@@ -24,9 +24,10 @@ def option_one():
         f.write(question_with_choice)
 
         while True:
-            ask = input("Add another question?(Y/N)")
+            ask = input("\nAdd another question?(Y/N)")
             if ask == "Y" or ask == "y":
                 new_line="\n"
+                print("\n----------\n")
                 f.write(new_line)
                 question_with_choice=""
                 break
@@ -40,7 +41,7 @@ def option_one():
                 break
 
             else:
-                print("you can only answer Y or N")
+                print(".\n.\n.\nyou can only answer Y or N\n----------\n")
                 continue
         if ask == "Y" or ask == "y":
             continue
@@ -72,10 +73,11 @@ def option_two():
         f.write(question_with_choice)
 
         while True:
-            ask = input("Add another question?(Y/N)")
+            ask = input("\nAdd another question?(Y/N)")
             if ask == "Y" or ask == "y":
                 new_line="\n"
                 f.write(new_line)
+                print("\n----------\n")
                 question_with_choice=""
                 break
 
@@ -87,7 +89,7 @@ def option_two():
                 break
 
             else:
-                print("you can only answer Y or N")
+                print(".\n.\n.\nyou can only answer Y or N\n----------\n")
                 continue
         if ask == "Y" or ask == "y":
             continue
@@ -97,33 +99,34 @@ def option_two():
 #Menu
 option_count = 0
 print("BASIC QUIZ MAKER")
-print("To get started\n"
+print("\nTo get started\n"
       "1:Create Quiz\n"
       "2:Edit Existing Quiz\n"
-      "3:Exit")
+      "3:Exit\n")
 
 #Main Prompt
 while True:
     try:
-        choice = (int(input("\nWhat do you want to do? Pick 1, 2, or, 3:")))
+        choice = (int(input("What do you want to do? Pick 1, 2, or, 3:")))
         if choice==1:
             print("\n----------\n\nYou have chosen 'CREATE QUIZ'\n")
             option_one()
             break
 
         if choice==2:
-            print("\n----------\n\nYou have chosen 'EDIT EXISTING QUIZ'\n")
-            filename=input("input filename of quiz you want to edit(be mindful with the cases and spaces):")
+            print("\n----------\n\nYou have chosen 'EDIT EXISTING QUIZ'")
+            filename=input("\nInput filename of quiz you want to edit(be mindful with the cases and spaces):")
+            print("\n")
             filename=filename+'.txt'
             option_two()
             break
 
         elif choice==3:
-            print("\nYou have chosen 'EXIT'\n\nGoodbye!")
+            print("\n----------\n\nYou have chosen 'EXIT'\n\n\nGoodbye!")
             break
 
         else:
-            print("\nYou can only pick between 1, 2, and 3.\n\n----------\n")
+            print(".\n.\n.\nYou can only pick between 1, 2, and 3.\n\n----------\n")
 
     except ValueError:
-        print("\nYou can only pick between 1, 2, and 3.\n\n----------\n")
+        print(".\n.\n.\nYou can only pick between 1, 2, and 3.\n\n----------\n")
