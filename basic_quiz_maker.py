@@ -24,7 +24,7 @@ def option_one():
         file.write(question_with_choice)
 
         answer=input("Input correct answer:")
-        file.write("Correct Answer:", answer)
+        file.write("Correct Answer: "+answer)
 
         while True:
             ask = input("\nAdd another question?(Y/N)")
@@ -76,7 +76,7 @@ def option_two():
         file.write(question_with_choice)
 
         answer=input("Input correct answer:")
-        file.write("Correct Answer:", answer)
+        file.write("Correct Answer: "+answer)
 
         while True:
             ask = input("\nAdd another question?(Y/N)")
