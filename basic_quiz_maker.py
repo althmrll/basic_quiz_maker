@@ -3,8 +3,8 @@ import os
 def option_one():
     options = []
     question_with_choice=""
-    f = open("Untitled Quiz.txt", "w")
-    f.write("(IMPORTANT NOTE: Please change the filename of this quiz after checking as it may be deleted when creating"
+    file = open("Untitled Quiz.txt", "w")
+    file.write("(IMPORTANT NOTE: Please change the filename of this quiz after checking as it may be deleted when creating"
             " a new one. Delete this notice after. Thank you!)\n\n")
 
     while True:
@@ -21,14 +21,17 @@ def option_one():
 
         for options_item_index, option in enumerate(options):
             question_with_choice += f"{chr(ord('a')+options_item_index)}. {option} \n"
-        f.write(question_with_choice)
+        file.write(question_with_choice)
+
+        answer=input("Input correct answer:")
+        file.write("Correct Answer:", answer)
 
         while True:
             ask = input("\nAdd another question?(Y/N)")
             if ask == "Y" or ask == "y":
                 new_line="\n"
                 print("\n----------\n")
-                f.write(new_line)
+                file.write(new_line)
                 question_with_choice=""
                 break
 
@@ -36,7 +39,7 @@ def option_one():
                 print("\nThank you for using basic quiz maker. Be sure to rename your file or else it will"
                         "be replaced if you make a new quiz.FOr now, a notepad file will open which contians all the"
                       "questions that you have inputted. Thank you!\n")
-                f.close()
+                file.close()
                 os.startfile('Untitled Quiz.txt')
                 break
 
@@ -51,10 +54,10 @@ def option_one():
 def option_two():
     options = []
     question_with_choice=""
-    f = open(filename, "a")
+    file = open(filename, "a")
     space="\n"
-    f.write(space)
-    f.write("(This is the start of your editing using quiz maker. Delete this after checking. Thank you!)\n\n")
+    file.write(space)
+    file.write("(This is the start of your editing using quiz maker. Delete this after checking. Thank you!)\n\n")
 
     while True:
         question=input("Question:") #Asks user for input
@@ -70,13 +73,16 @@ def option_two():
 
         for options_item_index, option in enumerate(options):
             question_with_choice += f"{chr(ord('a')+options_item_index)}. {option} \n"
-        f.write(question_with_choice)
+        file.write(question_with_choice)
+
+        answer=input("Input correct answer:")
+        file.write("Correct Answer:", answer)
 
         while True:
             ask = input("\nAdd another question?(Y/N)")
             if ask == "Y" or ask == "y":
                 new_line="\n"
-                f.write(new_line)
+                file.write(new_line)
                 print("\n----------\n")
                 question_with_choice=""
                 break
@@ -84,7 +90,7 @@ def option_two():
             elif ask == "N" or ask == "n":
                 print("\nThank you for using basic quiz maker. The file you have edited will now be opened so you can"
                       "check the changes.\n")
-                f.close()
+                file.close()
                 os.startfile(filename)
                 break
 
