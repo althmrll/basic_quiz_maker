@@ -9,30 +9,27 @@ def choose_file():
     global chosen_file
     quiz_checker_window.withdraw()  # Hide the main window
     chosen_file = filedialog.askopenfilename()
-    if chosen_file:
-        confirm_chosen_file
 
+    if chosen_file:
+        confirm_chosen_file = tk_module.Toplevel()
+        confirm_chosen_file.title("Confirm Chosen File")
+        confirm_chosen_file.geometry("300x200") 
+        printed_text= tk_module.Label(confirm_chosen_file, text="Chosen file:"+chosen_file) #Confirm user's chosen file
+        printed_text.pack()
+        confirm_button = tk_module.Button(confirm_chosen_file, text="Confirm", command=main_quiz)
+        confirm_button.pack()
     else:
         no_file_chosen = tk_module.Toplevel()
+        no_file_chosen.title("No Selected File")
         no_file_chosen.geometry("300x200") 
         exit_text= tk_module.Label(no_file_chosen, text='No file Chosen, exiting the program') #Confirm user's chosen file
         exit_text.pack()
         time.sleep(2)
-        no_file_chosen.withdraw
-
-#Confirm File
-def confirm_chosen_file():
-    confirm_chosen_file = tk_module.Toplevel()
-    confirm_chosen_file.title("Confirm Chosen File")
-    confirm_chosen_file.geometry("300x200") 
-    printed_text= tk_module.Label(confirm_chosen_file, text="Chosen file:"+chosen_file) #Confirm user's chosen file
-    printed_text.pack()
-    confirm_button = tk_module.Button(quiz_checker_window, text="Confirm", command=main_quiz)
-    confirm_button.pack()
-    confirm_chosen_file.mainloop()
+        no_file_chosen.withdraw()
 
 def main_quiz():
     file = open(chosen_file,'r')
+    print ("Hehe")
 
 
 #Main Program
