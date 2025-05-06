@@ -7,17 +7,12 @@ import time
 #Definitions
 def choose_file():
     global chosen_file
+    global confirm_chosen_file
     quiz_checker_window.withdraw()  # Hide the main window
     chosen_file = filedialog.askopenfilename()
 
-    if chosen_file:
-        confirm_chosen_file = tk_module.Toplevel()
-        confirm_chosen_file.title("Confirm Chosen File")
-        confirm_chosen_file.geometry("300x200") 
-        printed_text= tk_module.Label(confirm_chosen_file, text="Chosen file:"+chosen_file) #Confirm user's chosen file
-        printed_text.pack()
-        confirm_button = tk_module.Button(confirm_chosen_file, text="Confirm", command=main_quiz)
-        confirm_button.pack()
+    if chosen_file!='':
+        main_quiz
     else:
         no_file_chosen = tk_module.Toplevel()
         no_file_chosen.title("No Selected File")
@@ -28,9 +23,13 @@ def choose_file():
         no_file_chosen.withdraw()
 
 def main_quiz():
+    global main_quiz
     file = open(chosen_file,'r')
-    print ("Hehe")
-
+    quiz = tk_module.Toplevel()
+    quiz.title("Confirm Chosen File")
+    quiz.geometry("300x200") 
+    printed_text= tk_module.Label(quiz, text="hehe") #Confirm user's chosen file
+    printed_text.pack()
 
 #Main Program
 quiz_checker_window = tk_module.Tk()
