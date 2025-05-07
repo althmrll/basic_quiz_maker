@@ -1,50 +1,21 @@
-#QUIZ MAKER
-#Imports
-import tkinter as tk_module
-from tkinter import filedialog
-import time
+import os
 
-#Definitions
-def choose_file():
-    global chosen_file
-    global confirm_chosen_file
-    quiz_checker_window.withdraw()  # Hide the main window
-    chosen_file = filedialog.askopenfilename()
+#DEFINITIONS
+def center(center_text):
+    screen_size=os.get_terminal_size().columns
+    return center_text.center(screen_size)
 
-    if chosen_file!='':
-        main_quiz
-    else:
-        no_file_chosen = tk_module.Toplevel()
-        no_file_chosen.title("No Selected File")
-        no_file_chosen.geometry("300x200") 
-        exit_text= tk_module.Label(no_file_chosen, text='No file Chosen, exiting the program') #Confirm user's chosen file
-        exit_text.pack()
-        time.sleep(2)
-        no_file_chosen.withdraw()
+#FIXED VARIABLES
+program_title="QUIZ CHECKER"
+opening_message="\n\nThis program is used so you can answer the quiz you just created. You can also use this so other people can answer your created quiz. Press 'ENTER' to choose which quiz you want to answer.\n\n"
+centered_title=center(program_title)
 
-def main_quiz():
-    global main_quiz
-    file = open(chosen_file,'r')
-    quiz = tk_module.Toplevel()
-    quiz.title("Confirm Chosen File")
-    quiz.geometry("300x200") 
-    printed_text= tk_module.Label(quiz, text="hehe") #Confirm user's chosen file
-    printed_text.pack()
-
-#Main Program
-quiz_checker_window = tk_module.Tk()
-quiz_checker_window.title("Quiz Checker")
-quiz_checker_window.geometry("600x400") 
-menu_content = tk_module.Label(quiz_checker_window, text="QUIZ CHECKER\nThis quiz checker was made so you can answer the quiz" \
-"you created using basic quiz maker. To start click 'CHOOSE FILE' button below.") #Ask user the quiz they want to answer.
-menu_content.pack()
-
-choose_quiz_button = tk_module.Button(quiz_checker_window, text="Choose Quiz", command=choose_file)
-choose_quiz_button.pack()
-
-quiz_checker_window.mainloop()
+#QUIZ CHECKER
+print(centered_title)
+print(opening_message)
+#Ask user the quiz they want to answer (use pop-up?)
 #Print one question with choices for user to answer
-#Make user press 'submit' (or enter) button.
+#Make user press 'submit' (or enter) button
 #After submitting, show user the correct answer
 #Add 1 to number of corrects (if correct) and the number of questions answered over the total number of questions.
 #Flash ending message, positive if passed, negative if failed. (try adding multiple ending mesages done at random)
