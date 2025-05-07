@@ -7,28 +7,32 @@ def center(center_text):
     screen_size=os.get_terminal_size().columns
     return center_text.center(screen_size)
 
-def start_program():
-    start=input("")
-    while True:
-        if start == "":
-            choose_file()
-        else: 
-            start=input("Press 'ENTER' to start the game.")
-
 def choose_file():
     chosen_file = filedialog.askopenfilename()
     if chosen_file:
-        print("hehe")
+        choose_file_window.withdraw
+        file=open(chosen_file,"r")
+        main_quiz()
+
+def main_quiz():
+    print("hehe")
 
 #FIXED VARIABLES
-program_title="QUIZ CHECKER"
-opening_message="\nThis program is used so you can answer the quiz you just created. You can also use this so other people can answer your created quiz. Press 'ENTER' to choose which quiz you want to answer."
+program_title=""
+opening_message=""
 centered_title=center(program_title)
 
 #QUIZ CHECKER (main program)
-print(centered_title)
-print(opening_message)
-start_program()
+choose_file_window = tk_module.Tk()
+choose_file_window.title("QUIZ CHECKER")
+choose_file_window.geometry("600x400") 
+opening_message = tk_module.Label(choose_file_window, text="QUIZ CHECKER\nThis program is used so you can answer the quiz you" \
+"just created. You can also use this so other people can answer your created quiz. Click the button below to choose which" \
+"quiz you want to answer.") #Ask user the quiz they want to answer.
+opening_message.pack()
+
+choose_quiz_button = tk_module.Button(choose_file_window, text="Choose Quiz", command=choose_file)
+choose_quiz_button.pack()
 
 #Print one question with choices for user to answer
 #Make user press 'submit' (or enter) button
