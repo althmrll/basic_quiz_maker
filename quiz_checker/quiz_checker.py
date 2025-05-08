@@ -1,39 +1,49 @@
 import os
 import tkinter as tk_module
 from tkinter import filedialog
+import random
 
+#LIST
+quiz_lines=[]
+question_with_choice=[]
+answer=[]
 #DEFINITIONS
 def center(center_text):
     screen_size=os.get_terminal_size().columns
     return center_text.center(screen_size)
 
 def choose_file():
+    global chosen_file
     chosen_file = filedialog.askopenfilename()
     if chosen_file:
-        choose_file_window.withdraw
-        file=open(chosen_file,"r")
         main_quiz()
 
 def main_quiz():
-    print("hehe")
-
-#FIXED VARIABLES
-program_title=""
-opening_message=""
-centered_title=center(program_title)
+    choose_file_window.withdraw()
+    file=open(chosen_file,"r")
+    for lines in file:
+        if lines!="\n":
+            quiz_lines.append(lines)
+        elif lines.startswith("Correct Answer:"):
+            answer.append(lines)
+            formatted_lines="\n".join(lines)
+            question_with_choice.append(formatted_lines)
+            continue
 
 #QUIZ CHECKER (main program)
 choose_file_window = tk_module.Tk()
 choose_file_window.title("QUIZ CHECKER")
-choose_file_window.geometry("600x400") 
-opening_message = tk_module.Label(choose_file_window, text="QUIZ CHECKER\nThis program is used so you can answer the quiz you" \
-"just created. You can also use this so other people can answer your created quiz. Click the button below to choose which" \
-"quiz you want to answer.") #Ask user the quiz they want to answer.
+choose_file_window.geometry("1000x100") 
+opening_message = tk_module.Label(choose_file_window, text="QUIZ CHECKER\nThis program is used so you can answer the quiz you " \
+"just created uisng basic quiz creator. You can also use this so other people can answer your created quiz.\n Note that" \
+"this will not work if you use other quizzes, not created using basic quiz maker. Otherwise, click the button below to" \
+"choose which quiz you want to answer.") #Ask user the quiz they want to answer.
 opening_message.pack()
 
 choose_quiz_button = tk_module.Button(choose_file_window, text="Choose Quiz", command=choose_file)
 choose_quiz_button.pack()
 
+choose_file_window.mainloop()
 #Print one question with choices for user to answer
 #Make user press 'submit' (or enter) button
 #After submitting, show user the correct answer
