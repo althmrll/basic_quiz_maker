@@ -2,7 +2,6 @@ import os
 import tkinter as tk_module
 from tkinter import filedialog
 import random
-global questions_asked
 
 #LIST
 question_with_choice=[]
@@ -42,20 +41,21 @@ def question_with_choice_formatting():
 
 def ask_question_and_answer():
     global score
+    global questions_asked
     asked_question=0
-    fraction=asked_question/len(answer)
-    percentage=fraction*100
+    question_counter=0
     score=0
     questions_asked=[]
-    while asked_question!=len(question_with_choice):
-        random_index=random.randint(0,len(question_with_choice)-1)
-
+    while asked_question!=len(answer):
+        random_index=random.randint(0,len(answer)-1)
+        fraction=asked_question/len(answer)
+        percentage=fraction*100
         while True:
             if question_with_choice[random_index] in questions_asked:
-                return False
+                break
             else:
-                print(questions_asked, "questions asked out of", len(answer))
-                print(f"Score:{score}({percentage} % done)")
+                print(f"{question_counter} questions asked out of {len(answer)} ({percentage} % done)")
+                print(f"Score:{score}")
                 print(question_with_choice[random_index])
                 questions_asked.append(question_with_choice[random_index])
                 user_answer=input("Your answer:")
@@ -63,28 +63,35 @@ def ask_question_and_answer():
 
                 if user_answer==answer[random_index]:
                     print("Correct!!")
-                    asked_question+=1
-                    score=score+1
+                    asked_question=asked_question+1
+                    question_counter=question_counter+1
+                    score=score+1 #Add 1 to number of corrects (if correct) and the number of questions answered over the total number of questions.
                     break
                 else:
                     print("Wrong, the correct answer is", answer[random_index])
-                    asked_question+=1
+                    asked_question=asked_question+1
+                    question_counter=question_counter+1
                     break
-    finish
+    print(asked_question, len(answer))
+    finish()
 
-def finish():
-    if score>len(answer)/2:
-        print("You have finished the quiz and answered", score, "questions out of", len(answer), "Congrats!")
+
+def finish():#Flash ending message, positive if passed, negative if failed.
+    passing=len(answer)/2
+    if score>=passing:
+        print(f"You have finished the quiz and answered {score} questions out of {len(answer)}Congrats!")
         replay
     else:
-        print("You have finished the quiz and answered", score, "questions out of", len(answer), "Better luck next time!")
+        print(f"You have finished the quiz and answered {score} questions out of {len(answer)} Better luck next time!")
         replay
 
-def replay():
+def replay():#Add choice wether to exit the program or answer another quiz.
+    global score
     while True:
         replay=input("Do you want to answer another quiz?(Y/N)")
         replay=replay.upper()
         if replay=="Y":
+            questions_asked.clear
             score=0
             print("1: Replay Quiz\n2:Choose Another Quiz")
             while True:
@@ -126,7 +133,3 @@ choose_quiz_button = tk_module.Button(choose_file_window, text="Choose Quiz", co
 choose_quiz_button.pack()
 
 choose_file_window.mainloop()
-
-#Add 1 to number of corrects (if correct) and the number of questions answered over the total number of questions.
-#Flash ending message, positive if passed, negative if failed. (try adding multiple ending mesages done at random)
-#Add choice wether to exit the program or answer another quiz.
