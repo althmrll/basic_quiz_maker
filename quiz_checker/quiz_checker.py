@@ -72,45 +72,44 @@ def ask_question_and_answer():
                     asked_question=asked_question+1
                     question_counter=question_counter+1
                     break
-    print(asked_question, len(answer))
-    finish()
 
 
 def finish():#Flash ending message, positive if passed, negative if failed.
     passing=len(answer)/2
     if score>=passing:
         print(f"You have finished the quiz and answered {score} questions out of {len(answer)}Congrats!")
-        replay
     else:
         print(f"You have finished the quiz and answered {score} questions out of {len(answer)} Better luck next time!")
-        replay
 
 def replay():#Add choice wether to exit the program or answer another quiz.
     global score
+    replay=input("Do you want to answer another quiz?(Y/N)")
     while True:
-        replay=input("Do you want to answer another quiz?(Y/N)")
         replay=replay.upper()
         if replay=="Y":
             questions_asked.clear
             score=0
-            print("1: Replay Quiz\n2:Choose Another Quiz")
+            print("1: Replay Quiz\n2: Choose Another Quiz")
+            replay_choice=int(input("Your Choice:"))
             while True:
-                replay_choice=input("Your Choice:")
-                if replay_choice==1:
-                    choose_file
-                elif replay_choice==2:
-                    choose_file
-                else:
+                try:
+                    if replay_choice==1:
+                        main_quiz()
+                        replay()
+                    elif replay_choice==2:
+                        choose_file()
+                        replay()
+                except ValueError:
                     print("Invalid Input, Reasking Question...")
-                    return False
+                    replay_choice=int(input("Your Choice:"))
 
         elif replay=="N":
             print("Goodbye!")
-            exit
+            exit()
 
         else:
             print("Invalid Output, Reasking Question...")
-            return False
+            replay=input("Do you want to answer another quiz?(Y/N)")
         
 def main_quiz():
     global file
@@ -118,6 +117,8 @@ def main_quiz():
     file=open(chosen_file,"r")
     question_with_choice_formatting()
     ask_question_and_answer()
+    finish()
+    replay()
 
 #QUIZ CHECKER (main program)
 choose_file_window = tk_module.Tk()
