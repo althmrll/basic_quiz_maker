@@ -4,9 +4,9 @@ from tkinter import filedialog
 import random
 
 #LIST
-quiz_lines=[]
 question_with_choice=[]
 answer=[]
+
 #DEFINITIONS
 def center(center_text):
     screen_size=os.get_terminal_size().columns
@@ -19,15 +19,12 @@ def choose_file():
         main_quiz()
 
 def question_formatting():
-    while True:
-        line = file.readlines(5)
-        if not line:
-            break
-        else:
-            quiz_lines.append(line)
-        formatted_question="\n".join(quiz_lines)
-        question_with_choice.append(formatted_question)
-        quiz_lines=""
+    for line in file:
+        line = file.readlines()
+        if line == "\n":
+            StopIteration
+            print (line)
+            continue
 
 def ask_question():
         global question_and_answer_number
@@ -36,7 +33,6 @@ def ask_question():
         input_answer
 
 def input_answer():
-    answer_line = file.readlines(1)
     answer=input("Answer:")
     answer=answer.upper
     check_if_correct
@@ -61,10 +57,6 @@ def main_quiz():
     choose_file_window.withdraw()
     file=open(chosen_file,"r")
     question_formatting()
-    for chunk in question_formatting():
-        for line in chunk:
-            print(line.strip())
-        print("----- Chunk End -----") #Separator for chunks
 
 #QUIZ CHECKER (main program)
 choose_file_window = tk_module.Tk()
