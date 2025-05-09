@@ -18,17 +18,23 @@ def choose_file():
     if chosen_file:
         main_quiz()
 
+def question_formatting():
+    while True:
+        line = file.readlines(5)
+        if not line:
+            break
+        yield line
+
+
 def main_quiz():
+    global file
     choose_file_window.withdraw()
     file=open(chosen_file,"r")
-    for lines in file:
-        if lines!="\n":
-            quiz_lines.append(lines)
-        elif lines.startswith("Correct Answer:"):
-            answer.append(lines)
-            formatted_lines="\n".join(lines)
-            question_with_choice.append(formatted_lines)
-            continue
+    question_formatting()
+    for chunk in question_formatting():
+        for line in chunk:
+            print(line.strip())
+        print("----- Chunk End -----") #Separator for chunks
 
 #QUIZ CHECKER (main program)
 choose_file_window = tk_module.Tk()
@@ -44,7 +50,7 @@ choose_quiz_button = tk_module.Button(choose_file_window, text="Choose Quiz", co
 choose_quiz_button.pack()
 
 choose_file_window.mainloop()
-#Print one question with choices for user to answer
+#Print one random question with choices for user to answer
 #Make user press 'submit' (or enter) button
 #After submitting, show user the correct answer
 #Add 1 to number of corrects (if correct) and the number of questions answered over the total number of questions.
