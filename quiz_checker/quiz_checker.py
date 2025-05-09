@@ -18,13 +18,25 @@ def choose_file():
     if chosen_file:
         main_quiz()
 
-def question_formatting():
-    for line in file:
-        line = file.readlines()
-        if line == "\n":
-            StopIteration
-            print (line)
-            continue
+def question_with_choice_formatting():
+    find_word="Correct Answer:"
+    format_question_and_options=[]
+    lines = file.readlines()
+    for indiv_lines in lines:
+        if indiv_lines!="\n":
+            format_question_and_options.append(indiv_lines)
+
+        elif indiv_lines=="\n":
+            question_with_choice.append(format_question_and_options)
+            format_question_and_options.clear()
+
+        elif find_word in indiv_lines:
+            formatted_answer=str(indiv_lines)
+            formatted_answer=formatted_answer.replace(find_word,"")
+            answer.append(formatted_answer)
+        
+    lines=lines.split("\n")
+    print(lines)
 
 def ask_question():
         global question_and_answer_number
@@ -37,14 +49,6 @@ def input_answer():
     answer=answer.upper
     check_if_correct
 
-def format_correct_Answer():
-    find_word="Correct Answer:"
-    for answer_line in chosen_file:
-        if find_word in answer_line:
-            correct_answer=answer_line.replace("Correct Answer:","")
-            correct_answer=correct_answer.upper
-            answer.append(correct_answer)
-
 def check_if_correct():
     correct_answer=answer[question_and_answer_number]
     if answer==correct_answer:#After submitting, show user the correct answer
@@ -56,7 +60,7 @@ def main_quiz():
     global file
     choose_file_window.withdraw()
     file=open(chosen_file,"r")
-    question_formatting()
+    question_with_choice_formatting()
 
 #QUIZ CHECKER (main program)
 choose_file_window = tk_module.Tk()
