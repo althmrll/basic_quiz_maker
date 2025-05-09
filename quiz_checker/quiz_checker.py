@@ -23,8 +23,27 @@ def question_formatting():
         line = file.readlines(5)
         if not line:
             break
-        yield line
+        else:
+            quiz_lines.append(line)
+        formatted_question="\n".join(quiz_lines)
+        question_with_choice.append(formatted_question)
+        quiz_lines=""
+        input_answer_and_check_if_correct
 
+def input_answer_and_check_if_correct():
+    answer_line = file.readlines(1)
+    answer=input("Answer:")
+    answer=answer.upper
+    find_word="Correct Answer:"
+    for answer_line in chosen_file:
+        if find_word in answer_line:
+            correct_answer=answer_line.replace("Correct Answer:","")
+            correct_answer=correct_answer.upper
+    StopIteration
+    if answer==correct_answer:
+        print("You are correct!")
+    else:
+        print("Wrong, Correct asnwer is", correct_answer)
 
 def main_quiz():
     global file
