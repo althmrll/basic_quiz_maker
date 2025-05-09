@@ -28,19 +28,30 @@ def question_formatting():
         formatted_question="\n".join(quiz_lines)
         question_with_choice.append(formatted_question)
         quiz_lines=""
-        input_answer_and_check_if_correct
 
-def input_answer_and_check_if_correct():
+def ask_question():
+        global question_and_answer_number
+        question_and_answer_number=random.random(question_with_choice)
+        print (question_with_choice[question_and_answer_number])#Print one random question with choices for user to answer
+        input_answer
+
+def input_answer():
     answer_line = file.readlines(1)
     answer=input("Answer:")
     answer=answer.upper
+    check_if_correct
+
+def format_correct_Answer():
     find_word="Correct Answer:"
     for answer_line in chosen_file:
         if find_word in answer_line:
             correct_answer=answer_line.replace("Correct Answer:","")
             correct_answer=correct_answer.upper
-    StopIteration
-    if answer==correct_answer:
+            answer.append(correct_answer)
+
+def check_if_correct():
+    correct_answer=answer[question_and_answer_number]
+    if answer==correct_answer:#After submitting, show user the correct answer
         print("You are correct!")
     else:
         print("Wrong, Correct asnwer is", correct_answer)
@@ -69,9 +80,7 @@ choose_quiz_button = tk_module.Button(choose_file_window, text="Choose Quiz", co
 choose_quiz_button.pack()
 
 choose_file_window.mainloop()
-#Print one random question with choices for user to answer
-#Make user press 'submit' (or enter) button
-#After submitting, show user the correct answer
+
 #Add 1 to number of corrects (if correct) and the number of questions answered over the total number of questions.
 #Flash ending message, positive if passed, negative if failed. (try adding multiple ending mesages done at random)
 #Add choice wether to exit the program or answer another quiz.
