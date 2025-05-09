@@ -32,16 +32,18 @@ def question_with_choice_formatting():
 
         elif find_word in indiv_lines:
             formatted_answer=str(indiv_lines)
-            formatted_answer=formatted_answer.replace(find_word,"")
+            formatted_answer=formatted_answer.replace(find_word,"").upper()
             answer.append(formatted_answer)
         
     lines=lines.split("\n")
     print(lines)
 
 def ask_question():
-        global question_and_answer_number
-        question_and_answer_number=random.random(question_with_choice)
-        print (question_with_choice[question_and_answer_number])#Print one random question with choices for user to answer
+    global correct_answer
+    while questions_asked!=len(answer):
+        random_index=random.randint(len(answer))
+        print (question_with_choice[random_index])#Print one random question with choices for user to answer
+        correct_answer=answer[random_index]
         input_answer
 
 def input_answer():
@@ -50,7 +52,6 @@ def input_answer():
     check_if_correct
 
 def check_if_correct():
-    correct_answer=answer[question_and_answer_number]
     if answer==correct_answer:#After submitting, show user the correct answer
         print("You are correct!")
     else:
@@ -58,6 +59,8 @@ def check_if_correct():
 
 def main_quiz():
     global file
+    global questions_asked
+    questions_asked=0
     choose_file_window.withdraw()
     file=open(chosen_file,"r")
     question_with_choice_formatting()
