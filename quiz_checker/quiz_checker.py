@@ -40,23 +40,33 @@ def question_with_choice_formatting():
     formatted_question_and_option="".join(format_question_and_options)
     question_with_choice.append(formatted_question_and_option)
 
-def ask_question_answer_and_check():
-    questions_asked=0
-    correct_answer='nfjdwnfkw'
-    while questions_asked!=len(answer):
-        answer=input("Your Answer:")
-        answer=answer.upper
-        if answer==correct_answer:#After submitting, show user the correct answer
-            print("You are correct!")
-        else:
-            print("Wrong, Correct asnwer is", correct_answer)
+def ask_question_and_answer():
+    global shuffled_answers
+    answer_key= list(zip(question_with_choice, answer))
+    shuffled=random.shuffle(answer_key)
+    shuffled_questions, shuffled_answers = zip(shuffled)
+    question_count=0
+    while question_count!=len(shuffled_questions):
+        for questions in shuffled_questions:
+            print(question_count,"/", len(shuffled_questions))
+            print(questions)
+            answer=input("Your answer:")
+            question_count+=1
+            check_answer()
+
+
+def check_answer():
+    if answer==shuffled_answers:
+        print("Correct!!")
+    else:
+        print("Wrong, Correct answer is", shuffled_answers)
 
 def main_quiz():
     global file
     choose_file_window.withdraw()
     file=open(chosen_file,"r")
     question_with_choice_formatting()
-    ask_question_answer_and_check()
+    ask_question_and_answer()
 
 #QUIZ CHECKER (main program)
 choose_file_window = tk_module.Tk()
