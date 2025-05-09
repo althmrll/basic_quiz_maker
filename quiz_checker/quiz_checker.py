@@ -2,6 +2,7 @@ import os
 import tkinter as tk_module
 from tkinter import filedialog
 import random
+global questions_asked
 
 #LIST
 question_with_choice=[]
@@ -36,36 +37,26 @@ def question_with_choice_formatting():
             formatted_question_and_option="".join(format_question_and_options)
             question_with_choice.append(formatted_question_and_option)
             format_question_and_options.clear()
-    ask_question
+    formatted_question_and_option="".join(format_question_and_options)
+    question_with_choice.append(formatted_question_and_option)
 
-def ask_question():
-    global correct_answer
+def ask_question_answer_and_check():
+    questions_asked=0
+    correct_answer='nfjdwnfkw'
     while questions_asked!=len(answer):
-        random_index=random.randint(len(answer))
-        print (question_with_choice[random_index])#Print one random question with choices for user to answer
-        correct_answer=answer[random_index]
-        questions_asked=questions_asked+1
-        input_answer
-
-def input_answer():
-    answer=input("Answer:")
-    answer=answer.upper
-    check_if_correct
-
-def check_if_correct():
-    if answer==correct_answer:#After submitting, show user the correct answer
-        print("You are correct!")
-    else:
-        print("Wrong, Correct asnwer is", correct_answer)
+        answer=input("Your Answer:")
+        answer=answer.upper
+        if answer==correct_answer:#After submitting, show user the correct answer
+            print("You are correct!")
+        else:
+            print("Wrong, Correct asnwer is", correct_answer)
 
 def main_quiz():
     global file
-    global questions_asked
-    questions_asked=0
     choose_file_window.withdraw()
     file=open(chosen_file,"r")
     question_with_choice_formatting()
-    ask_question
+    ask_question_answer_and_check()
 
 #QUIZ CHECKER (main program)
 choose_file_window = tk_module.Tk()
