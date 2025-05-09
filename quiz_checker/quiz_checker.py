@@ -59,21 +59,21 @@ def ask_question_and_answer():
                 if question_with_choice[random_index] in questions_asked:
                     break
                 else:
-                    print(f"{question_counter} questions asked out of {len(answer)} ({percentage} % done)")
-                    print(f"Score:{score}")
+                    print(f"\n----------\n\n{question_counter} questions asked out of {len(answer)} ({percentage} % done)")
+                    print(f"Score:{score}\n")
                     print(question_with_choice[random_index])
                     questions_asked.append(question_with_choice[random_index])
                     user_answer=input("Your answer:")
                     user_answer=user_answer.upper().strip()
 
                     if user_answer==answer[random_index]:
-                        print("Correct!!")
+                        print("\nCorrect!!")
                         asked_question=asked_question+1
                         question_counter=question_counter+1
                         score=score+1 #Add 1 to number of corrects (if correct) and the number of questions answered over the total number of questions.
                         break
                     else:
-                        print("Wrong, the correct answer is", answer[random_index])
+                        print("\nWrong, the correct answer is", answer[random_index])
                         asked_question=asked_question+1
                         question_counter=question_counter+1
                         break
@@ -81,10 +81,10 @@ def ask_question_and_answer():
 def finish():#Flash ending message, positive if passed, negative if failed.
     passing=len(answer)/2
     if score>=passing:
-        print(f"You have finished the quiz and answered {score} questions out of {len(answer)}. Congrats!")
+        print(f"\n\nYou have finished the quiz and answered {score} questions out of {len(answer)}. Congrats!\n\n----------\n")
         replay()
     else:
-        print(f"You have finished the quiz and answered {score} questions out of {len(answer)}. Better luck next time!")
+        print(f"\n\nYou have finished the quiz and answered {score} questions out of {len(answer)}. Better luck next time!\n\n----------\n")
         replay()
 
 def replay():#Add choice wether to exit the program or answer another quiz.
