@@ -1,4 +1,3 @@
-import os
 import tkinter as tk_module
 from tkinter import filedialog
 import random
@@ -8,10 +7,6 @@ question_with_choice=[]
 answer=[]
 
 #DEFINITIONS
-def center(center_text):
-    screen_size=os.get_terminal_size().columns
-    return center_text.center(screen_size)
-
 def choose_file():
     question_with_choice.clear()
     answer.clear()
