@@ -22,21 +22,21 @@ def question_with_choice_formatting():
     find_word="Correct Answer:"
     format_question_and_options=[]
     lines = file.readlines()
+
     for indiv_lines in lines:
         if indiv_lines!="\n":
-            format_question_and_options.append(indiv_lines)
+            if indiv_lines.startswith(find_word):
+                formatted_answer=str(indiv_lines)
+                formatted_answer=formatted_answer.replace(find_word,"").replace("\n","").upper()
+                answer.append(formatted_answer)
+            else:
+                format_question_and_options.append(indiv_lines)
 
-        elif indiv_lines=="\n":
-            question_with_choice.append(format_question_and_options)
+        elif indiv_lines=="\n" or indiv_lines=="":
+            formatted_question_and_option="".join(format_question_and_options)
+            question_with_choice.append(formatted_question_and_option)
             format_question_and_options.clear()
-
-        elif find_word in indiv_lines:
-            formatted_answer=str(indiv_lines)
-            formatted_answer=formatted_answer.replace(find_word,"").upper()
-            answer.append(formatted_answer)
-        
-    lines=lines.split("\n")
-    print(lines)
+    ask_question
 
 def ask_question():
     global correct_answer
@@ -44,6 +44,7 @@ def ask_question():
         random_index=random.randint(len(answer))
         print (question_with_choice[random_index])#Print one random question with choices for user to answer
         correct_answer=answer[random_index]
+        questions_asked=questions_asked+1
         input_answer
 
 def input_answer():
@@ -64,6 +65,7 @@ def main_quiz():
     choose_file_window.withdraw()
     file=open(chosen_file,"r")
     question_with_choice_formatting()
+    ask_question
 
 #QUIZ CHECKER (main program)
 choose_file_window = tk_module.Tk()
