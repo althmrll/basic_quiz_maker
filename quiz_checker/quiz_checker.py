@@ -13,6 +13,8 @@ def center(center_text):
     return center_text.center(screen_size)
 
 def choose_file():
+    question_with_choice.clear()
+    answer.clear()
     global chosen_file
     chosen_file = filedialog.askopenfilename()
     if chosen_file:
@@ -27,7 +29,7 @@ def question_with_choice_formatting():
         if indiv_lines!="\n":
             if indiv_lines.startswith(find_word):
                 formatted_answer=str(indiv_lines)
-                formatted_answer=formatted_answer.replace(find_word,"").replace("\n","").upper()
+                formatted_answer=formatted_answer.replace(find_word,"").replace("\n","").upper().strip()
                 answer.append(formatted_answer)
             else:
                 format_question_and_options.append(indiv_lines)
@@ -51,65 +53,54 @@ def ask_question_and_answer():
         fraction=asked_question/len(answer)
         percentage=fraction*100
         while True:
-            if question_with_choice[random_index] in questions_asked:
-                break
+            if asked_question==len(answer):
+                finish()
             else:
-                print(f"{question_counter} questions asked out of {len(answer)} ({percentage} % done)")
-                print(f"Score:{score}")
-                print(question_with_choice[random_index])
-                questions_asked.append(question_with_choice[random_index])
-                user_answer=input("Your answer:")
-                user_answer=user_answer.upper()
-
-                if user_answer==answer[random_index]:
-                    print("Correct!!")
-                    asked_question=asked_question+1
-                    question_counter=question_counter+1
-                    score=score+1 #Add 1 to number of corrects (if correct) and the number of questions answered over the total number of questions.
+                if question_with_choice[random_index] in questions_asked:
                     break
                 else:
-                    print("Wrong, the correct answer is", answer[random_index])
-                    asked_question=asked_question+1
-                    question_counter=question_counter+1
-                    break
+                    print(f"{question_counter} questions asked out of {len(answer)} ({percentage} % done)")
+                    print(f"Score:{score}")
+                    print(question_with_choice[random_index])
+                    questions_asked.append(question_with_choice[random_index])
+                    user_answer=input("Your answer:")
+                    user_answer=user_answer.upper().strip()
 
+                    if user_answer==answer[random_index]:
+                        print("Correct!!")
+                        asked_question=asked_question+1
+                        question_counter=question_counter+1
+                        score=score+1 #Add 1 to number of corrects (if correct) and the number of questions answered over the total number of questions.
+                        break
+                    else:
+                        print("Wrong, the correct answer is", answer[random_index])
+                        asked_question=asked_question+1
+                        question_counter=question_counter+1
+                        break
 
 def finish():#Flash ending message, positive if passed, negative if failed.
     passing=len(answer)/2
     if score>=passing:
-        print(f"You have finished the quiz and answered {score} questions out of {len(answer)}Congrats!")
+        print(f"You have finished the quiz and answered {score} questions out of {len(answer)}. Congrats!")
+        replay()
     else:
-        print(f"You have finished the quiz and answered {score} questions out of {len(answer)} Better luck next time!")
+        print(f"You have finished the quiz and answered {score} questions out of {len(answer)}. Better luck next time!")
+        replay()
 
 def replay():#Add choice wether to exit the program or answer another quiz.
     global score
-    replay=input("Do you want to answer another quiz?(Y/N)")
+    global replay_choice
+    replay_choice=""
     while True:
-        replay=replay.upper()
-        if replay=="Y":
-            questions_asked.clear
-            score=0
-            print("1: Replay Quiz\n2: Choose Another Quiz")
-            replay_choice=int(input("Your Choice:"))
-            while True:
-                try:
-                    if replay_choice==1:
-                        main_quiz()
-                        replay()
-                    elif replay_choice==2:
-                        choose_file()
-                        replay()
-                except ValueError:
-                    print("Invalid Input, Reasking Question...")
-                    replay_choice=int(input("Your Choice:"))
-
-        elif replay=="N":
+        replay=input("Do you want to answer another quiz?(Y/N)")
+        if replay=="Y" or replay=="y":
+            choose_file()
+        elif replay=="N" or replay=="n":
             print("Goodbye!")
+            choose_file_window.destroy()
             exit()
-
         else:
             print("Invalid Output, Reasking Question...")
-            replay=input("Do you want to answer another quiz?(Y/N)")
         
 def main_quiz():
     global file
@@ -118,7 +109,6 @@ def main_quiz():
     question_with_choice_formatting()
     ask_question_and_answer()
     finish()
-    replay()
 
 #QUIZ CHECKER (main program)
 choose_file_window = tk_module.Tk()
