@@ -41,25 +41,29 @@ def question_with_choice_formatting():
     question_with_choice.append(formatted_question_and_option)
 
 def ask_question_and_answer():
-    global shuffled_answers
-    answer_key= list(zip(question_with_choice, answer))
-    shuffled=random.shuffle(answer_key)
-    shuffled_questions, shuffled_answers = zip(shuffled)
-    question_count=0
-    while question_count!=len(shuffled_questions):
-        for questions in shuffled_questions:
-            print(question_count,"/", len(shuffled_questions))
-            print(questions)
-            answer=input("Your answer:")
-            question_count+=1
-            check_answer()
+    asked_question=0
+    questions_asked=[]
+    while asked_question!=len(question_with_choice):
+        random_index=random.randint(0,len(question_with_choice)-1)
+        print(random_index)
 
+        while True:
+            if question_with_choice[random_index] in questions_asked:
+                return False
+            else:
+                print(question_with_choice[random_index])
+                questions_asked.append(question_with_choice[random_index])
+                user_answer=input("Your answer:")
+                user_answer=user_answer.upper()
 
-def check_answer():
-    if answer==shuffled_answers:
-        print("Correct!!")
-    else:
-        print("Wrong, Correct answer is", shuffled_answers)
+                if user_answer==answer[random_index]:
+                    print("Correct!!")
+                    asked_question+=1
+                    break
+                else:
+                    print("Wrong, the correct answer is", answer[random_index])
+                    asked_question+=1
+                    break
 
 def main_quiz():
     global file
