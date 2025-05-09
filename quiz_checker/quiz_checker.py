@@ -41,16 +41,21 @@ def question_with_choice_formatting():
     question_with_choice.append(formatted_question_and_option)
 
 def ask_question_and_answer():
+    global score
     asked_question=0
+    fraction=asked_question/len(answer)
+    percentage=fraction*100
+    score=0
     questions_asked=[]
     while asked_question!=len(question_with_choice):
         random_index=random.randint(0,len(question_with_choice)-1)
-        print(random_index)
 
         while True:
             if question_with_choice[random_index] in questions_asked:
                 return False
             else:
+                print(questions_asked, "questions asked out of", len(answer))
+                print(f"Score:{score}({percentage} % done)")
                 print(question_with_choice[random_index])
                 questions_asked.append(question_with_choice[random_index])
                 user_answer=input("Your answer:")
@@ -59,12 +64,47 @@ def ask_question_and_answer():
                 if user_answer==answer[random_index]:
                     print("Correct!!")
                     asked_question+=1
+                    score=score+1
                     break
                 else:
                     print("Wrong, the correct answer is", answer[random_index])
                     asked_question+=1
                     break
+    finish
 
+def finish():
+    if score>len(answer)/2:
+        print("You have finished the quiz and answered", score, "questions out of", len(answer), "Congrats!")
+        replay
+    else:
+        print("You have finished the quiz and answered", score, "questions out of", len(answer), "Better luck next time!")
+        replay
+
+def replay():
+    while True:
+        replay=input("Do you want to answer another quiz?(Y/N)")
+        replay=replay.upper()
+        if replay=="Y":
+            score=0
+            print("1: Replay Quiz\n2:Choose Another Quiz")
+            while True:
+                replay_choice=input("Your Choice:")
+                if replay_choice==1:
+                    choose_file
+                elif replay_choice==2:
+                    choose_file
+                else:
+                    print("Invalid Input, Reasking Question...")
+                    return False
+
+        elif replay=="N":
+            print("Goodbye!")
+            exit
+
+        else:
+            print("Invalid Output, Reasking Question...")
+            return False
+        
 def main_quiz():
     global file
     choose_file_window.withdraw()
